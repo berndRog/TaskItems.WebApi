@@ -25,7 +25,9 @@ public class CDbContext: DbContext  {
    public async Task<bool> SaveAllChangesAsync() {
       _logger.LogDebug("SaveChanges() {HashCode}", GetHashCode()); 
       _logger.LogDebug("\n{Tracker}",ChangeTracker.DebugView.LongView);         
+      
       var result = await SaveChangesAsync();      
+      
       _logger.LogDebug("SaveChanges {result}",result);
       _logger.LogDebug("\n{Tracker}",ChangeTracker.DebugView.LongView);
       return result > 0;

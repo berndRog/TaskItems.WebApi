@@ -66,8 +66,8 @@ public class ConfigureSwaggerOptions: IConfigureNamedOptions<SwaggerGenOptions> 
 
    private static OpenApiInfo CreateVersionInfo(ApiVersionDescription description) {
       var info = new OpenApiInfo() {
-         Title = "CarShp.WebApi",
-         Description = "Rest API für TaskItems",
+         Title = "TaskItems.WebApi",
+         Description = "Rest API für Aufgabeverwaltung",
          Version = description.ApiVersion.ToString()
       };
 

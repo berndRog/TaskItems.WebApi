@@ -12,7 +12,7 @@ public class Programm {
       // Add services (dependency injection)
       ConfigureServices(builder);
       var app = builder.Build();
-     
+
       //
       // Configure request pipeline.
       //
@@ -39,13 +39,12 @@ public class Programm {
       app.Run();
    }
 
-
    static void ConfigureLogging(WebApplicationBuilder builder) {
       builder.Logging.ClearProviders();
       builder.Logging.AddConsole();
       builder.Logging.AddDebug();
 //    builder.Logging.AddEventLog();
-      builder.Logging.AddEventSourceLogger();
+//    builder.Logging.AddEventSourceLogger();
       // Write Logging to Debug into a file
       // Windows C:\users\<username>\appdata\local
       // Mac       /users/<username>\.local/share
@@ -60,4 +59,5 @@ public class Programm {
       builder.Services.AddDiOpenApi();
       builder.Services.AddDiPersistence(builder.Configuration);
    }
+
 }

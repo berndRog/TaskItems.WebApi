@@ -1,4 +1,6 @@
-﻿namespace TaskItems.DomainModel.Entities;
+﻿using System.Globalization;
+
+namespace TaskItems.DomainModel.Entities;
 
 public class TaskItem {
 
@@ -12,18 +14,12 @@ public class TaskItem {
    public TaskItem() { }
    #endregion
 
-   #region methods
-   public TaskItem Set(string title, string description) {
-      Id = Guid.NewGuid(); 
+   #region MyRegion
+   public TaskItem Set(string title, string desription) {
+      Id = Guid.NewGuid();
       Title = title;
-      Description = description;      
+      Description= desription;
       return this;
-   }   
-   public TaskItem Set(Guid id, string title, string description) {
-      Id = (id == Guid.Empty) ? Guid.NewGuid() : id; 
-      Title = title;
-      Description = description;      
-      return this;
-   }   
+   }
    #endregion
 }

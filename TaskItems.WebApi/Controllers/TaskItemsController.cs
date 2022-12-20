@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
 namespace TaskItems.Controllers; 
-[Route("carshop/")]
+[Route("v1/tasks/")]
 [ApiController]
 public class TaskItemsController : ControllerBase {
 
@@ -52,7 +52,7 @@ public class TaskItemsController : ControllerBase {
    }
 
    /// <summary>
-   /// Get all users 
+   /// Get all TaskItems 
    /// </summary>
    /// <returns>IEnumerable{TaskItem}; </returns>
    /// <response code="200">Ok. TaskItem returned</response>
@@ -74,7 +74,7 @@ public class TaskItemsController : ControllerBase {
    }
   
    /// <summary>
-   /// Insert an taskItem. User has an Id, otherwise it will be created
+   /// Insert an taskItem. TaskItem has an Id, otherwise it will be created
    /// </summary>
    /// <param name="taskItem"></param>
    /// <returns>TaskItem?</returns>
@@ -95,7 +95,7 @@ public class TaskItemsController : ControllerBase {
          _logger.LogDebug("Post");
                      
          if(await _repository.FindByIdAsync(taskItem.Id) != null) 
-            return Conflict($"Post: User with given id already exists");
+            return Conflict($"Post: TaskItem with given id already exists");
 
          // save to repository and write to database 
          await _repository.AddAsync(taskItem);

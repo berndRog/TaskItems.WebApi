@@ -1,7 +1,5 @@
 ﻿using TaskItems.DomainModel.Entities;
-
 using Microsoft.EntityFrameworkCore;
-
 using System.Linq.Expressions;
 
 namespace TaskItems.Persistence;
@@ -14,7 +12,6 @@ public class CTaskItemsRepository : ITaskItemsRepository {
    #region ctor
    public CTaskItemsRepository(CDbContext dbContext) {
       _dbContext = dbContext;
-      _dbContext.Database.EnsureCreated();
    }
    #endregion
 
