@@ -28,8 +28,8 @@ public class TaskItemsController : ControllerBase {
    /// </summary>
    /// <param name="id:Guid">id of the taskItem</param>
    /// <returns>OwnerDto?</returns>
-   /// <response code="200">Ok: OwnerDto with given id returned</response>
-   /// <response code="404">NotFound: OwnerDto with given id not found</response>
+   /// <response code="200">Ok: TaskItem with given id returned</response>
+   /// <response code="404">NotFound: TaskItem with given id not found</response>
    /// <response code="500">Server internal error.</response>
    [HttpGet("{id:Guid}")]
    [Produces(MediaTypeNames.Application.Json)]
@@ -43,7 +43,7 @@ public class TaskItemsController : ControllerBase {
       try {
          _logger.LogDebug("Get {id}",id);
          var taskItem = await _repository.FindByIdAsync(id);
-         if(taskItem == null) return NotFound("Task with given id not found");
+         if(taskItem == null) return NotFound("TaskItem with given id not found");
          return Ok(taskItem); 
       }
       catch (Exception e) {
@@ -55,7 +55,7 @@ public class TaskItemsController : ControllerBase {
    /// Get all TaskItems 
    /// </summary>
    /// <returns>IEnumerable{TaskItem}; </returns>
-   /// <response code="200">Ok. TaskItem returned</response>
+   /// <response code="200">Ok. List with TaskItems returned</response>
    /// <response code="500">Server internal error.</response>
    [HttpGet("")]
    [Produces(MediaTypeNames.Application.Json)]
@@ -74,7 +74,7 @@ public class TaskItemsController : ControllerBase {
    }
   
    /// <summary>
-   /// Insert an taskItem. TaskItem has an Id, otherwise it will be created
+   /// Insert an taskItem. TaskItem must have an id:Guid
    /// </summary>
    /// <param name="taskItem"></param>
    /// <returns>TaskItem?</returns>
@@ -118,11 +118,11 @@ public class TaskItemsController : ControllerBase {
    /// <summary>
    /// Update an taskItem, if taskItem with id exists.
    /// </summary>
-   /// <param name="id:Guid">given id</param>
-   /// <param name="updTaskItem">taskItem with new properties</param>
+   /// <param name="id:Guid">Given id</param>
+   /// <param name="updTaskItem">TaskItem with new properties</param>
    /// <returns>Owner?</returns>
-   /// <response code="200">Ok: Owner with given id updated.</response>
-   /// <response code="400">Bad Request: id and Owner.Id do not match.</response>
+   /// <response code="200">Ok: TaskItem with given id updated.</response>
+   /// <response code="400">Bad Request: id and TaskItem.Id do not match.</response>
    /// <response code="500">Server internal error.</response>
    [HttpPut("{id:Guid}")]
    [Consumes(MediaTypeNames.Application.Json)]
@@ -157,8 +157,8 @@ public class TaskItemsController : ControllerBase {
    /// </summary>
    /// <param name="id"></param>
    /// <returns></returns>
-   /// <response code="204">NoContent: Owner deleted.</response>
-   /// <response code="404">NotFound: Owner with given id not found</response>
+   /// <response code="204">NoContent: TaskItem deleted.</response>
+   /// <response code="404">NotFound: TaskItem with given id not found</response>
    /// <response code="500">Server internal error.</response>
    [HttpDelete("{id:Guid}")]
    [Produces(MediaTypeNames.Application.Json)]
