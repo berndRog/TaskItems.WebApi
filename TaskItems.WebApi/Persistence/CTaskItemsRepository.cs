@@ -44,6 +44,12 @@ public class CTaskItemsRepository : ITaskItemsRepository {
          _dbContext.TaskItems.Remove(taskItem);
    }
 
+   public async Task RemoveAllAsync() {
+      var tasks = await _dbContext.TaskItems
+                                  .ToListAsync();
+      _dbContext.TaskItems.RemoveRange(tasks);
+   }
+
    public async Task<bool> SaveChangesAsync() =>
       await _dbContext.SaveAllChangesAsync();
 

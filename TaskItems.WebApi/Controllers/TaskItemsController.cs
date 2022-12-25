@@ -1,6 +1,7 @@
 ﻿using TaskItems.DomainModel.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Http;
 
 namespace TaskItems.Controllers; 
 [Route("v1/tasks/")]
@@ -174,6 +175,30 @@ public class TaskItemsController : ControllerBase {
          var taskItem = await _repository.FindByIdAsync(id);
          if(taskItem == null) return NotFound($"Delete: TaskItem with given id not found");
          await _repository.RemoveAsync(taskItem);
+         await _repository.SaveChangesAsync();
+         return NoContent();  // 204 = Ok with no content
+      }
+      catch (Exception e) {
+         return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+      }
+   }
+
+
+   /// <summary>
+   /// Delete all TaskItems 
+   /// </summary>
+   /// <returns>IEnumerable{TaskItem}; </returns>
+   /// <response code="204">NoContent. All TaskItems removed</response>
+   /// <response code="500">Server internal error.</response>
+   [HttpDelete("")]
+   [Produces(MediaTypeNames.Application.Json)]
+   [ProducesResponseType(StatusCodes.Status204NoContent)]
+   [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+   [ProducesDefaultResponseType]
+   public async Task<ActionResult<TaskItem>> DeleteAllAsync() {
+      try {
+         _logger.LogDebug("DeleteAll()");
+         await _repository.RemoveAllAsync();
          await _repository.SaveChangesAsync();
          return NoContent();  // 204 = Ok with no content
       }

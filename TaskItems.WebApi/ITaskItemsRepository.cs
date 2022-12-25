@@ -8,5 +8,6 @@ public interface ITaskItemsRepository {
    Task AddRangeAsync(IEnumerable<TaskItem> taskItem);
    Task UpdateAsync(TaskItem taskItem);
    Task RemoveAsync(TaskItem taskItem);
+   Task RemoveAllAsync();
    Task<bool> SaveChangesAsync();
 }
